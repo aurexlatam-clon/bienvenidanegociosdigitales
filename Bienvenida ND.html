@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Bienvenido | AUREX Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0A;--gold:#D4A843;--gold-light:#E8C06A;
+    --gold-dim:rgba(212,168,67,0.15);--gold-glow:rgba(212,168,67,0.07);
+    --white:#F5F5F0;--gray:#888880;--text:#D0CFC8;
+    --cyan:#00C9B1;--rose:#FF6B6B;--violet:#9B6DFF;
+    --green:#4CAF82;--orange:#FF8C42;--max:640px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;font-size:16px;line-height:1.75;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(212,168,67,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,0.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+  @keyframes floatIcon{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  @keyframes pulse{0%,100%{opacity:0.5;transform:translateX(-50%) scale(1);}50%{opacity:0.9;transform:translateX(-50%) scale(1.08);}}
+
+  /* HERO */
+  .hero{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:72px 24px 56px;text-align:center;overflow:hidden;}
+  .hero-glow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(212,168,67,0.1) 0%,transparent 70%);pointer-events:none;animation:pulse 6s ease infinite;}
+  .module-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-dim);border:1px solid rgba(212,168,67,0.3);border-radius:100px;padding:6px 18px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:24px;animation:fadeUp 0.8s ease both;position:relative;z-index:1;}
+  .dot-anim{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s ease infinite;}
+  .hero-icon{font-size:64px;display:block;margin-bottom:20px;animation:floatIcon 3s ease-in-out infinite;position:relative;z-index:1;}
+  .hero-title{font-family:'Syne',sans-serif;font-size:clamp(32px,8vw,50px);font-weight:800;line-height:1.05;color:var(--white);margin-bottom:12px;animation:fadeUp 0.8s ease 0.1s both;position:relative;z-index:1;}
+  .hero-title span{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 60%,#F5D78E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub{font-size:15px;color:var(--gray);max-width:520px;margin:0 auto 32px;line-height:1.8;animation:fadeUp 0.8s ease 0.2s both;position:relative;z-index:1;}
+  .hero-sub strong{color:var(--white);}
+
+  /* MAIN */
+  .main{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 20px 80px;}
+
+  /* SECTION LABEL */
+  .sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin:48px 0 20px;display:flex;align-items:center;gap:12px;}
+  .sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(212,168,67,0.3),transparent);}
+
+  /* MÓDULOS GRID */
+  .modulos-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;}
+  @media(min-width:480px){.modulos-grid{grid-template-columns:repeat(3,1fr);}}
+
+  .modulo-card{
+    border-radius:16px;padding:20px 16px;
+    position:relative;overflow:hidden;
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+    cursor:default;
+  }
+  .modulo-card:hover{transform:translateY(-4px);}
+  .modulo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+
+  .mc-1{background:rgba(212,168,67,0.08);border:1px solid rgba(212,168,67,0.2);}
+  .mc-1::before{background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .mc-2{background:rgba(0,201,177,0.07);border:1px solid rgba(0,201,177,0.2);}
+  .mc-2::before{background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+  .mc-3{background:rgba(155,109,255,0.07);border:1px solid rgba(155,109,255,0.2);}
+  .mc-3::before{background:linear-gradient(90deg,transparent,var(--violet),transparent);}
+  .mc-4{background:rgba(255,107,107,0.06);border:1px solid rgba(255,107,107,0.18);}
+  .mc-4::before{background:linear-gradient(90deg,transparent,var(--rose),transparent);}
+  .mc-5{background:rgba(76,175,130,0.07);border:1px solid rgba(76,175,130,0.2);}
+  .mc-5::before{background:linear-gradient(90deg,transparent,var(--green),transparent);}
+  .mc-6{background:rgba(255,140,66,0.07);border:1px solid rgba(255,140,66,0.2);}
+  .mc-6::before{background:linear-gradient(90deg,transparent,var(--orange),transparent);}
+
+  .mc-icon{font-size:28px;margin-bottom:10px;display:block;}
+  .mc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--white);margin-bottom:6px;line-height:1.3;}
+  .mc-desc{font-size:11.5px;color:var(--gray);line-height:1.55;}
+
+  .mc-1 .mc-name{color:var(--gold);}
+  .mc-2 .mc-name{color:var(--cyan);}
+  .mc-3 .mc-name{color:var(--violet);}
+  .mc-4 .mc-name{color:var(--rose);}
+  .mc-5 .mc-name{color:var(--green);}
+  .mc-6 .mc-name{color:var(--orange);}
+
+  /* VISIÓN */
+  .vision-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-left:3px solid var(--gold);border-radius:14px;padding:22px 24px;margin-bottom:8px;font-size:14.5px;color:var(--text);line-height:1.85;}
+  .vision-card strong{color:var(--white);}
+  .vision-card em{color:var(--gold);font-style:normal;font-weight:700;}
+
+  /* OBJETIVO GRID */
+  .obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;}
+  @media(min-width:480px){.obj-grid{grid-template-columns:repeat(4,1fr);}}
+
+  .obj-card{
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:14px;padding:20px 12px;
+    text-align:center;
+    transition:all 0.3s ease;
+    position:relative;overflow:hidden;
+  }
+  .obj-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;}
+  .obj-card:hover{transform:translateY(-3px);background:rgba(255,255,255,0.04);}
+
+  .oc-1::before{background:var(--gold);}
+  .oc-2::before{background:var(--cyan);}
+  .oc-3::before{background:var(--violet);}
+  .oc-4::before{background:var(--green);}
+
+  .obj-icon{font-size:28px;margin-bottom:8px;display:block;}
+  .obj-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;margin-bottom:6px;}
+  .oc-1 .obj-title{color:var(--gold);}
+  .oc-2 .obj-title{color:var(--cyan);}
+  .oc-3 .obj-title{color:var(--violet);}
+  .oc-4 .obj-title{color:var(--green);}
+  .obj-result{font-size:11px;color:var(--gray);line-height:1.5;}
+  .obj-result strong{color:var(--white);display:block;font-size:12px;margin-bottom:3px;}
+
+  /* TIMELINE */
+  .timeline{position:relative;padding-left:32px;margin:8px 0;}
+  .timeline::before{content:'';position:absolute;left:11px;top:24px;bottom:24px;width:2px;background:linear-gradient(to bottom,var(--gold),var(--cyan),var(--violet),var(--orange),var(--rose),var(--green));border-radius:4px;}
+
+  .tl-item{position:relative;margin-bottom:14px;}
+  .tl-dot{position:absolute;left:-27px;top:20px;width:16px;height:16px;border-radius:50%;border:2px solid var(--bg);box-shadow:0 0 0 2px currentColor;}
+
+  .tl-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:18px 18px;transition:all 0.3s ease;}
+  .tl-card:hover{background:rgba(255,255,255,0.04);transform:translateX(4px);}
+
+  .tl-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .tl-period{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:100px;}
+  .tl-headline{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--white);}
+  .tl-focus{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:8px;}
+  .tl-focus strong{color:var(--white);}
+  .tl-meta{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:100px;display:inline-block;}
+
+  /* Timeline colors */
+  .t7d .tl-dot{color:var(--gold);background:var(--gold);}
+  .t7d .tl-period{background:rgba(212,168,67,0.15);color:var(--gold);}
+  .t7d .tl-meta{background:rgba(212,168,67,0.12);color:var(--gold);}
+
+  .t30 .tl-dot{color:var(--cyan);background:var(--cyan);}
+  .t30 .tl-period{background:rgba(0,201,177,0.12);color:var(--cyan);}
+  .t30 .tl-meta{background:rgba(0,201,177,0.1);color:var(--cyan);}
+
+  .t90 .tl-dot{color:var(--violet);background:var(--violet);}
+  .t90 .tl-period{background:rgba(155,109,255,0.12);color:var(--violet);}
+  .t90 .tl-meta{background:rgba(155,109,255,0.1);color:var(--violet);}
+
+  .t6m .tl-dot{color:var(--orange);background:var(--orange);}
+  .t6m .tl-period{background:rgba(255,140,66,0.12);color:var(--orange);}
+  .t6m .tl-meta{background:rgba(255,140,66,0.1);color:var(--orange);}
+
+  .t1y .tl-dot{color:var(--rose);background:var(--rose);}
+  .t1y .tl-period{background:rgba(255,107,107,0.12);color:var(--rose);}
+  .t1y .tl-meta{background:rgba(255,107,107,0.1);color:var(--rose);}
+
+  .t3y .tl-dot{color:var(--green);background:var(--green);}
+  .t3y .tl-period{background:rgba(76,175,130,0.12);color:var(--green);}
+  .t3y .tl-meta{background:rgba(76,175,130,0.1);color:var(--green);}
+
+  /* CIERRE */
+  .cierre{
+    background:linear-gradient(135deg,rgba(212,168,67,0.12),rgba(212,168,67,0.03));
+    border:1px solid rgba(212,168,67,0.3);
+    border-radius:20px;padding:36px 28px;
+    text-align:center;margin-top:48px;
+    position:relative;overflow:hidden;
+  }
+  .cierre::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .cierre-icon{font-size:48px;margin-bottom:16px;}
+  .cierre-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--white);line-height:1.3;margin-bottom:10px;}
+  .cierre-title span{background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .cierre-text{font-size:14px;color:var(--gray);line-height:1.8;margin-bottom:24px;}
+  .cierre-text strong{color:var(--white);}
+  .cierre-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--gold),#C49535);color:#0A0A0A;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:16px 32px;border-radius:100px;border:none;box-shadow:0 8px 32px rgba(212,168,67,0.35);cursor:pointer;text-decoration:none;transition:all 0.3s ease;}
+  .cierre-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(212,168,67,0.5);}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .particle{position:fixed;width:2px;height:2px;border-radius:50%;background:var(--gold);opacity:0;pointer-events:none;z-index:0;animation:floatP var(--dur,9s) ease-in-out var(--delay,0s) infinite;}
+  @keyframes floatP{0%{opacity:0;transform:translateY(100vh);}10%{opacity:0.4;}90%{opacity:0.1;}100%{opacity:0;transform:translateY(-80px);}}
+</style>
+</head>
+<body>
+<div class="particle" style="left:10%;--dur:10s;--delay:0s;"></div>
+<div class="particle" style="left:45%;--dur:13s;--delay:2s;"></div>
+<div class="particle" style="left:80%;--dur:9s;--delay:1s;"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="module-badge"><span class="dot-anim"></span> AUREX Academy · Bienvenida</div>
+  <span class="hero-icon">🌐</span>
+  <h1 class="hero-title">Bienvenido al mundo de los<br><span>negocios digitales</span></h1>
+  <p class="hero-sub">El mundo ya se mueve en dirección digital. Aquí encontrarás la comunidad, las herramientas y el camino para desarrollarte — <strong>a tu ritmo, desde cero, sin necesidad de ser experto en tecnología.</strong></p>
+</section>
+
+<main class="main">
+
+  <!-- QUÉ APRENDERÁS -->
+  <div class="sec-label reveal">¿Qué aprenderás en AUREX?</div>
+
+  <div class="modulos-grid reveal">
+
+    <div class="modulo-card mc-1">
+      <span class="mc-icon">💻</span>
+      <div class="mc-name">Negocios por Internet</div>
+      <div class="mc-desc">Cómo construir y escalar un negocio digital desde tu celular, sin experiencia previa.</div>
+    </div>
+
+    <div class="modulo-card mc-2">
+      <span class="mc-icon">🤝</span>
+      <div class="mc-name">Network Marketing Digital</div>
+      <div class="mc-desc">El sistema de duplicación que te permite generar ingresos mientras tu equipo crece.</div>
+    </div>
+
+    <div class="modulo-card mc-3">
+      <span class="mc-icon">₿</span>
+      <div class="mc-name">Criptomonedas</div>
+      <div class="mc-desc">Entiende el dinero del futuro — cómo funciona, cómo protegerlo y cómo hacerlo crecer.</div>
+    </div>
+
+    <div class="modulo-card mc-4">
+      <span class="mc-icon">📊</span>
+      <div class="mc-name">Trading</div>
+      <div class="mc-desc">Conceptos clave para operar mercados financieros con estrategia y gestión de riesgo.</div>
+    </div>
+
+    <div class="modulo-card mc-5">
+      <span class="mc-icon">📱</span>
+      <div class="mc-name">Marketing Digital</div>
+      <div class="mc-desc">Atrae prospectos en redes sin pagar ads — contenido, embudos y sistema probado.</div>
+    </div>
+
+    <div class="modulo-card mc-6">
+      <span class="mc-icon">🌍</span>
+      <div class="mc-name">Diversificación de Portafolios</div>
+      <div class="mc-desc">Cómo distribuir tu dinero en múltiples activos para protegerte y crecer a largo plazo.</div>
+    </div>
+
+  </div>
+
+  <!-- VISIÓN -->
+  <div class="vision-card reveal">
+    Puedes participar de manera <em>parcial o al 100%</em> — tú decides. Lo importante es que <strong>no estás solo.</strong> Esta plataforma fue creada de manera didáctica, simple y con pasos claros para que cualquier persona pueda emprender y generar resultados reales, <strong>sin importar su nivel de experiencia con la tecnología.</strong>
+  </div>
+
+  <!-- OBJETIVO -->
+  <div class="sec-label reveal">¿Cuál es el objetivo?</div>
+
+  <div class="obj-grid reveal">
+
+    <div class="obj-card oc-1">
+      <span class="obj-icon">🎯</span>
+      <div class="obj-title">Claridad</div>
+      <div class="obj-result"><strong>Para lograr resultados, el objetivo es:</strong>entender cómo funciona este negocio antes de hablar con tu primer prospecto.</div>
+    </div>
+
+    <div class="obj-card oc-2">
+      <span class="obj-icon">⚡</span>
+      <div class="obj-title">Acción</div>
+      <div class="obj-result"><strong>Para lograr resultados, el objetivo es:</strong>ejecutar el sistema desde el día 1 sin esperar a tenerlo todo perfecto.</div>
+    </div>
+
+    <div class="obj-card oc-3">
+      <span class="obj-icon">📈</span>
+      <div class="obj-title">Crecimiento</div>
+      <div class="obj-result"><strong>Para lograr resultados, el objetivo es:</strong>escalar con marketing digital y duplicación constante de tu equipo.</div>
+    </div>
+
+    <div class="obj-card oc-4">
+      <span class="obj-icon">🔁</span>
+      <div class="obj-title">Duplicación</div>
+      <div class="obj-result"><strong>Para lograr resultados, el objetivo es:</strong>construir un equipo que trabaje contigo y genere ingresos aunque tú no estés.</div>
+    </div>
+
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="sec-label reveal">Tu línea de desarrollo — lo que puedes esperar y lograr</div>
+
+  <div class="timeline">
+
+    <div class="tl-item t7d reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-header">
+          <span class="tl-period">7 días</span>
+          <span class="tl-headline">Arranca el motor</span>
+        </div>
+        <div class="tl-focus">
+          Vitrina digital lista, sistema diario activo, primeras conversaciones abiertas.
+          <strong>Tu objetivo esta semana no es vender — es encender el motor y crear el hábito.</strong>
+        </div>
+        <span class="tl-meta">🎯 Meta: 3 conversaciones abiertas</span>
+      </div>
+    </div>
+
+    <div class="tl-item t30 reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-header">
+          <span class="tl-period">30 días</span>
+          <span class="tl-headline">Primeros ingresos reales</span>
+        </div>
+        <div class="tl-focus">
+          Sistema diario funcionando, embudo enviando prospectos, primeros Zooms ejecutados.
+          <strong>Tu primer cierre ocurre aquí — o estás muy cerca de él.</strong>
+        </div>
+        <span class="tl-meta">🎯 Meta: 1-2 cierres · ingresos iniciales</span>
+      </div>
+    </div>
+
+    <div class="tl-item t90 reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-header">
+          <span class="tl-period">90 días</span>
+          <span class="tl-headline">Sistema y duplicación activos</span>
+        </div>
+        <div class="tl-focus">
+          Equipo inicial formado, marketing digital generando prospectos automáticos, ingresos en crecimiento constante.
+          <strong>Dejas de trabajar solo — tu equipo empieza a duplicar.</strong>
+        </div>
+        <span class="tl-meta">🎯 Meta: equipo activo · ingresos recurrentes</span>
+      </div>
+    </div>
+
+    <div class="tl-item t6m reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-header">
+          <span class="tl-period">6 meses</span>
+          <span class="tl-headline">Liderazgo y libertad de tiempo</span>
+        </div>
+        <div class="tl-focus">
+          Líderes en tu equipo comenzando a duplicar, contenido generando prospectos mientras duermes, portafolio diversificado iniciado.
+          <strong>Empiezas a sentir lo que es la libertad de tiempo — el negocio trabaja aunque tú no estés.</strong>
+        </div>
+        <span class="tl-meta">🎯 Meta: ingresos que se sienten reales · líderes formados</span>
+      </div>
+    </div>
+
+    <div class="tl-item t1y reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-header">
+          <span class="tl-period">1 año</span>
+          <span class="tl-headline">Negocio establecido con flujo propio</span>
+        </div>
+        <div class="tl-focus">
+          Red de distribución activa y autónoma, marca personal reconocida, ingresos que complementan o reemplazan tu trabajo actual.
+          <strong>Tu negocio ya tiene vida propia. Primeras inversiones en cripto y activos digitales.</strong>
+        </div>
+        <span class="tl-meta">🎯 Meta: independencia económica en construcción</span>
+      </div>
+    </div>
+
+    <div class="tl-item t3y reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-header">
+          <span class="tl-period">3 años</span>
+          <span class="tl-headline">Libertad financiera y de tiempo</span>
+        </div>
+        <div class="tl-focus">
+          Organización grande y duplicable trabajando para ti, múltiples fuentes de ingresos activas y pasivas, tiempo y dinero alineados.
+          <strong>Tú eres el líder que inspira a otros a empezar. La libertad real — de tiempo, de economía, de vida — está construida.</strong>
+        </div>
+        <span class="tl-meta">🎯 Meta: libertad total · legado construido</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CIERRE -->
+  <div class="cierre reveal">
+    <div class="cierre-icon">🚀</div>
+    <div class="cierre-title">No necesitas saberlo todo<br><span>para empezar.</span></div>
+    <div class="cierre-text">
+      Solo necesitas dar el primer paso.<br>
+      <strong>Esta plataforma está diseñada para que aprendas en el camino.</strong><br><br>
+      El sistema está listo. El equipo está aquí. Tú decides cuándo empezar.
+    </div>
+    <a class="cierre-btn" href="#">Comenzar ahora →</a>
+  </div>
+
+</main>
+
+<script>
+  const reveals=document.querySelectorAll('.reveal');
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:0.1});
+  reveals.forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
